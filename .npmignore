@@ -1,0 +1,26 @@
+# Source code
+lib/
+src/
+
+# Examples and tests
+examples/
+tests/
+
+# Build scripts
+scripts/
+
+# Configuration
+*.config.ts
+*.config.js
+!dist/
+tsconfig*.json
+
+# Development
+.github/
+.vscode/
+.idea/
+
+# Misc
+node_modules/
+.DS_Store
+*.log

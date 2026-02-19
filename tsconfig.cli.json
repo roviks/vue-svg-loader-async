@@ -1,0 +1,14 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "module": "ESNext",
+    "moduleResolution": "bundler",
+    "outDir": "./dist/cli",
+    "rootDir": "./lib/cli",
+    "declaration": false,
+    "skipLibCheck": true,
+    "noEmit": false,
+    "allowImportingTsExtensions": false
+  },
+  "include": ["lib/cli/**/*"]
+}

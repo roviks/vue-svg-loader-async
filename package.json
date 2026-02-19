@@ -1,0 +1,96 @@
+{
+  "name": "@rovik/vue-svg-icons",
+  "version": "1.0.0",
+  "description": "Type-safe SVG icon system for Vue 3 with automatic optimization and theming",
+  "type": "module",
+  "workspaces": [
+    "examples/demo"
+  ],
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "bin": {
+    "vue-svg-icons": "./dist/cli/bin/cli.js"
+  },
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs"
+    },
+    "./plugin": {
+      "types": "./dist/plugin/index.d.ts",
+      "import": "./dist/plugin/index.js",
+      "require": "./dist/plugin/index.cjs"
+    },
+    "./component": {
+      "types": "./dist/component/index.d.ts",
+      "import": "./dist/component/index.js",
+      "require": "./dist/component/index.cjs"
+    }
+  },
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "build": "npm run clean && npm run build:lib && npm run build:cli",
+    "build:lib": "vite build --config vite.config.lib.ts",
+    "build:cli": "tsc -p tsconfig.cli.json",
+    "clean": "rimraf dist",
+    "icons:init": "node dist/cli/bin/cli.js init",
+    "icons:generate": "node dist/cli/bin/cli.js generate",
+    "icons:watch": "node dist/cli/bin/cli.js watch",
+    "dev:demo": "npm run dev --workspace=vue-svg-icons-demo",
+    "build:demo": "npm run build --workspace=vue-svg-icons-demo",
+    "prepublishOnly": "npm run build",
+    "publish:dry": "npm pack --dry-run",
+    "release:patch": "npm version patch && npm publish --access public",
+    "release:minor": "npm version minor && npm publish --access public",
+    "release:major": "npm version major && npm publish --access public"
+  },
+  "keywords": [
+    "vue",
+    "vue3",
+    "svg",
+    "icons",
+    "typescript",
+    "vite",
+    "component",
+    "type-safe",
+    "optimization",
+    "theming"
+  ],
+  "peerDependencies": {
+    "vue": "^3.5.0",
+    "vite": "^5.0.0 || ^6.0.0 || ^7.0.0"
+  },
+  "dependencies": {
+    "svgo": "^4.0.0",
+    "commander": "^14.0.3",
+    "picocolors": "^1.1.1",
+    "prompts": "^2.4.2",
+    "chokidar": "^5.0.0"
+  },
+  "devDependencies": {
+    "@types/node": "^25.2.3",
+    "@types/prompts": "^2.4.9",
+    "@vitejs/plugin-vue": "^6.0.3",
+    "rimraf": "^6.1.3",
+    "tsx": "^4.21.0",
+    "typescript": "^5.9.3",
+    "vite": "^7.3.1",
+    "vite-plugin-dts": "^4.5.4",
+    "vue": "^3.5.27",
+    "vue-tsc": "^3.2.4"
+  },
+  "engines": {
+    "node": "^20.19.0 || >=22.12.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/yourscope/vue-svg-icons"
+  },
+  "license": "MIT"
+}
