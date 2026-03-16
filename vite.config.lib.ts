@@ -19,7 +19,7 @@ export default defineConfig({
         index: resolve(__dirname, 'lib/index.ts'),
         'plugin/index': resolve(__dirname, 'lib/plugin/index.ts'),
         'component/index': resolve(__dirname, 'lib/component/index.ts'),
-        'component/types': resolve(__dirname, 'lib/component/types.ts')
+        'component/types': resolve(__dirname, 'lib/component/icon.types.ts')
       },
       formats: ['es', 'cjs'],
       fileName: (format, entryName) => `${entryName}.${format === 'es' ? 'js' : 'cjs'}`
