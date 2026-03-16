@@ -1,51 +1,49 @@
 # @rovik/vue-svg-icons
 
-> Type-safe SVG icon system for Vue 3 with automatic optimization and theming
+> Type-Safe система SVG-иконок для Vue 3 с автоматической оптимизацией и темизацией
 
 [![npm version](https://img.shields.io/npm/v/@rovik/vue-svg-icons.svg)](https://www.npmjs.com/package/@rovik/vue-svg-icons)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-Transform your SVG icons into a type-safe, optimized icon system for Vue 3. Get autocomplete, automatic optimization with SVGO, CSS theming, and full accessibility support out of the box.
+Автодополнение, автоматическая оптимизация через SVGO, CSS-темизация и полная поддержка доступности из коробки.
 
-## ✨ Features
+## ✨ Возможности
 
-- 🔒 **Type-Safe** - Full TypeScript support with autocomplete for all your icon names
-- ⚡ **Zero Runtime Overhead** - SVGs optimized and transformed at build time
-- 🎨 **CSS Theming** - Single-color icons use `currentColor`, multicolor icons support CSS variables
-- ♿ **Accessible** - Proper ARIA attributes and semantic HTML built-in
-- 🔥 **Hot Module Replacement** - Icon changes reflected instantly during development
-- 📦 **Tree-Shakeable** - Only bundle the icons you actually use
-- 🎯 **Cache-Busting** - Automatic content hashing for optimal caching
+- 🔒 **Type-Safe** — полная поддержка TypeScript с автодополнением для всех имён иконок
+- ⚡ **Нулевые накладные расходы** — SVG оптимизируются и преобразуются на этапе сборки
+- 🎨 **CSS-темизация** — одноцветные иконки используют `currentColor`, многоцветные поддерживают CSS-переменные
+- ♿ **Доступность** — встроенные ARIA-атрибуты и семантический HTML
+- 🔥 **HMR** — изменения иконок мгновенно отражаются в процессе разработки
 
-## 📦 Installation
+## 📦 Установка
 
 ```bash
 npm install @rovik/vue-svg-icons
 ```
 
-**Peer Dependencies:**
+**Peer-зависимости:**
 - Vue 3.5+
-- Vite 5.x, 6.x, or 7.x
+- Vite 5.x, 6.x или 7.x
 
-## 🚀 Quick Start
+## 🚀 Быстрый старт
 
-### 1. Initialize
+### 1. Инициализация
 
-Run the interactive setup wizard:
+Запустите интерактивный мастер настройки:
 
 ```bash
 npx vue-svg-icons init
 ```
 
-This will:
-- Create your icons directory
-- Set up type generation
-- Create `svgo.config.js` for SVG optimization
-- Generate initial TypeScript types
+Это создаст:
+- Директорию для иконок
+- Настройку генерации типов
+- `svgo.config.js` для оптимизации SVG
+- Начальные TypeScript-типы
 
-### 2. Add Icons
+### 2. Добавьте иконки
 
-Add your SVG files to the icons directory (default: `./src/assets/icons/`):
+Поместите SVG-файлы в директорию иконок (по умолчанию: `./src/assets/icons/`):
 
 ```bash
 ./src/assets/icons/
@@ -60,9 +58,9 @@ Add your SVG files to the icons directory (default: `./src/assets/icons/`):
     └── chevron-right.svg
 ```
 
-### 3. Configure Vite
+### 3. Настройте Vite
 
-Add the plugin to your `vite.config.ts`:
+Добавьте плагин в `vite.config.ts`:
 
 ```typescript
 import { defineConfig } from 'vite'
@@ -80,7 +78,7 @@ export default defineConfig({
 })
 ```
 
-### 4. Use in Components
+### 4. Используйте в компонентах
 
 ```vue
 <script setup lang="ts">
@@ -88,133 +86,133 @@ import { Icon } from '@rovik/vue-svg-icons'
 </script>
 
 <template>
-  <!-- Type-safe with autocomplete! -->
+  <!-- Типобезопасно с автодополнением! -->
   <Icon name="common/home" />
 
-  <!-- Custom size -->
+  <!-- Кастомный размер -->
   <Icon name="social/twitter" :size="32" />
 
-  <!-- Custom color -->
+  <!-- Кастомный цвет -->
   <Icon name="arrows/chevron-right" color="#3B82F6" />
 
-  <!-- CSS units -->
+  <!-- CSS-единицы -->
   <Icon name="common/user" size="2rem" />
 
-  <!-- Accessible -->
-  <Icon name="common/settings" label="Open settings" />
+  <!-- Доступность -->
+  <Icon name="common/settings" label="Открыть настройки" />
 </template>
 ```
 
-## 📖 API Reference
+## 📖 Справочник API
 
-### Icon Component Props
+### Пропсы компонента Icon
 
 ```typescript
 interface IconProps {
-  // Icon name (category/name format) - Type-safe with autocomplete
+  // Имя иконки (формат category/name) — типобезопасно с автодополнением
   name: IconName
 
-  // Size in pixels or CSS unit (default: 24)
+  // Размер в пикселях или CSS-единицах (по умолчанию: 24)
   size?: number | string
 
-  // Color (default: 'currentColor')
+  // Цвет (по умолчанию: 'currentColor')
   color?: string
 
-  // Accessible label (for screen readers)
+  // Метка для скринридеров
   label?: string
 
-  // Whether icon is purely decorative (default: false)
+  // Является ли иконка декоративной (по умолчанию: false)
   decorative?: boolean
 
-  // CSS variables for multicolor icons
+  // CSS-переменные для многоцветных иконок
   cssVars?: Record<string, string>
 
-  // Additional CSS classes
+  // Дополнительные CSS-классы
   class?: string
 
-  // Custom viewBox (overrides default)
+  // Кастомный viewBox (переопределяет значение по умолчанию)
   viewBox?: string
 }
 ```
 
-### Vite Plugin Options
+### Опции Vite-плагина
 
 ```typescript
 interface SvgInlinePluginOptions {
-  // Directory containing your SVG icons
-  iconsDir?: string  // default: './src/assets/icons'
+  // Директория с SVG-иконками
+  iconsDir?: string  // по умолчанию: './src/assets/icons'
 
-  // Output directory for generated types
-  outputDir?: string  // default: './src/components/icon/generated'
+  // Директория для генерируемых типов
+  outputDir?: string  // по умолчанию: './src/components/icon/generated'
 
-  // Custom SVGO configuration
+  // Кастомная конфигурация SVGO
   svgoConfig?: SVGOConfig
 
-  // Convert single-color icons to currentColor (default: true)
+  // Конвертировать одноцветные иконки в currentColor (по умолчанию: true)
   enforceCurrentColor?: boolean
 
-  // Use CSS variables for multicolor icons (default: true)
+  // Использовать CSS-переменные для многоцветных иконок (по умолчанию: true)
   useCssVariables?: boolean
 }
 ```
 
-### CLI Commands
+### CLI-команды
 
 ```bash
-# Initialize project (interactive)
+# Инициализация проекта (интерактивно)
 npx vue-svg-icons init
 
-# Generate types from icons
+# Генерация типов из иконок
 npx vue-svg-icons generate
 
-# Watch mode (auto-regenerate on changes)
+# Режим слежения (автоматическая перегенерация при изменениях)
 npx vue-svg-icons watch
 
-# Custom directories
+# Кастомные директории
 npx vue-svg-icons generate --icons-dir ./assets/svg --output-dir ./types
 ```
 
-## 🎨 Theming
+## 🎨 Темизация
 
-### Single-Color Icons
+### Одноцветные иконки
 
-Icons with one color automatically use `currentColor`, making them easy to theme:
+Иконки с одним цветом автоматически используют `currentColor`, что упрощает темизацию:
 
 ```vue
 <template>
-  <!-- Inherits text color -->
+  <!-- Наследует цвет текста -->
   <div class="text-blue-500">
     <Icon name="common/home" />
   </div>
 
-  <!-- Explicit color -->
+  <!-- Явный цвет -->
   <Icon name="common/home" color="#FF0000" />
 
-  <!-- Dark mode -->
+  <!-- Тёмная тема -->
   <Icon name="common/home" class="text-gray-800 dark:text-gray-200" />
 </template>
 ```
 
-### Multicolor Icons
+### Многоцветные иконки
 
-Icons with multiple colors use CSS variables with fallbacks:
+Иконки с несколькими цветами используют CSS-переменные с fallback-значениями:
 
 ```vue
 <script setup lang="ts">
 const brandColors = {
-  'color-1': '#1DA1F2',  // Twitter blue
-  'color-2': '#FFFFFF'   // White
+  'color-1': '#1DA1F2',  // Синий Twitter
+  'color-2': '#FFFFFF'   // Белый
 }
 </script>
 
 <template>
-  <!-- Default colors -->
+  <!-- Цвета по умолчанию -->
   <Icon name="social/twitter" :size="48" />
 
-  <!-- Custom colors via prop -->
+  <!-- Кастомные цвета через пропс -->
   <Icon name="social/twitter" :size="48" :cssVars="brandColors" />
 
-  <!-- Custom colors via CSS -->
+  <!-- Кастомные цвета через CSS -->
   <Icon name="social/twitter" :size="48" class="custom-twitter" />
 </template>
 
@@ -225,35 +223,35 @@ const brandColors = {
 }
 
 .dark .custom-twitter {
-  --icon-color-1: #60A5FA;  /* Lighter blue for dark mode */
+  --icon-color-1: #60A5FA;  /* Светло-синий для тёмной темы */
   --icon-color-2: #E5E7EB;
 }
 </style>
 ```
 
-## ♿ Accessibility
+## ♿ Доступность
 
-The Icon component handles accessibility automatically:
+Компонент Icon автоматически управляет доступностью:
 
 ```vue
 <template>
-  <!-- Non-decorative: includes role="img" and aria-label -->
-  <Icon name="common/home" label="Home page" />
+  <!-- Не декоративная: добавляет role="img" и aria-label -->
+  <Icon name="common/home" label="Главная страница" />
 
-  <!-- Decorative: includes aria-hidden="true" and role="presentation" -->
+  <!-- Декоративная: добавляет aria-hidden="true" и role="presentation" -->
   <Icon name="common/settings" decorative />
 
-  <!-- In a button (icon should be decorative) -->
+  <!-- В кнопке (иконка должна быть декоративной) -->
   <button>
     <Icon name="common/home" decorative />
-    <span>Home</span>
+    <span>Главная</span>
   </button>
 </template>
 ```
 
-## ⚙️ SVG Optimization
+## ⚙️ Оптимизация SVG
 
-The library uses SVGO for optimization. Customize by creating `svgo.config.js`:
+Библиотека использует SVGO для оптимизации. Настройте через `svgo.config.js`:
 
 ```javascript
 export default {
@@ -262,15 +260,15 @@ export default {
       name: 'preset-default',
       params: {
         overrides: {
-          cleanupIds: false,        // Keep IDs for complex icons
-          removeViewBox: false,     // Required for responsive scaling
+          cleanupIds: false,        // Сохранять ID для сложных иконок
+          removeViewBox: false,     // Обязательно для адаптивного масштабирования
           convertColors: {
-            currentColor: true      // Preserve currentColor
+            currentColor: true      // Сохранять currentColor
           }
         }
       }
     },
-    // Add custom plugins
+    // Дополнительные плагины
     'removeXMLNS',
     'convertStyleToAttrs',
     'mergePaths'
@@ -280,34 +278,34 @@ export default {
 
 ## 🔥 Hot Module Replacement
 
-Icon changes are automatically detected during development:
+Изменения иконок автоматически обнаруживаются в процессе разработки:
 
 ```bash
-# Start dev server
+# Запустите dev-сервер
 npm run dev
 
-# Add/modify/delete SVG files in your icons directory
-# Types regenerate automatically ✨
+# Добавляйте/изменяйте/удаляйте SVG-файлы в директории иконок
+# Типы перегенерируются автоматически ✨
 ```
 
-## 📚 Examples
+## 📚 Примеры
 
-### Responsive Sizing
+### Адаптивный размер
 
 ```vue
 <template>
-  <!-- Relative to font size -->
+  <!-- Относительно размера шрифта -->
   <p style="font-size: 16px">
-    Lightning fast <Icon name="general/zap" size="1em" /> performance
+    Молниеносная <Icon name="general/zap" size="1em" /> производительность
   </p>
 
-  <!-- CSS units -->
+  <!-- CSS-единицы -->
   <Icon name="common/home" size="2rem" />
   <Icon name="common/home" size="10vh" />
 </template>
 ```
 
-### Dynamic Icons
+### Динамические иконки
 
 ```vue
 <script setup lang="ts">
@@ -330,13 +328,13 @@ const statusIcon = computed<IconName>(() => {
 </template>
 ```
 
-### Button with Icon
+### Кнопка с иконкой
 
 ```vue
 <template>
   <button class="btn">
     <Icon name="common/home" decorative />
-    <span>Home</span>
+    <span>Главная</span>
   </button>
 </template>
 
@@ -349,20 +347,20 @@ const statusIcon = computed<IconName>(() => {
 </style>
 ```
 
-## 🏗️ How It Works
+## 🏗️ Как это работает
 
-1. **Build Time**: The Vite plugin scans your icons directory and generates TypeScript types
-2. **Transform**: SVG imports with `?inline` query are transformed into optimized Vue components
-3. **Runtime**: Icons are lazy-loaded on demand using Vue's `defineAsyncComponent`
-4. **Type Safety**: Generated types provide autocomplete and compile-time validation
+1. **Сборка**: Vite-плагин сканирует директорию иконок и генерирует TypeScript-типы
+2. **Трансформация**: SVG-импорты с запросом `?inline` преобразуются в оптимизированные Vue-компоненты
+3. **Runtime**: Иконки загружаются лениво по требованию через `defineAsyncComponent` Vue
+4. **Типобезопасность**: Сгенерированные типы обеспечивают автодополнение и валидацию на этапе компиляции
 
-## 📄 License
+## 📄 Лицензия
 
 MIT © Rovik
 
-## 🙏 Credits
+## 🙏 Благодарности
 
-Built with:
+Создано с использованием:
 - [Vue 3](https://vuejs.org/)
 - [Vite](https://vitejs.dev/)
 - [SVGO](https://github.com/svg/svgo)
@@ -370,4 +368,4 @@ Built with:
 
 ---
 
-**Made with ❤️ for the Vue community**
+**Сделано с ❤️ для сообщества Vue**

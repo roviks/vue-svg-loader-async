@@ -8,8 +8,9 @@ export default defineConfig({
     vue(),
     dts({
       insertTypesEntry: true,
+      tsconfigPath: 'tsconfig.node.json',
       include: ['lib/**/*.ts', 'lib/**/*.vue'],
-      exclude: ['lib/cli/**/*']
+      exclude: ['lib/cli/bin/**/*', 'lib/cli/commands/**/*', 'lib/cli/templates/**/*', 'lib/cli/utils/logger.ts']
     })
   ],
   build: {
@@ -17,31 +18,31 @@ export default defineConfig({
       entry: {
         index: resolve(__dirname, 'lib/index.ts'),
         'plugin/index': resolve(__dirname, 'lib/plugin/index.ts'),
-        'component/index': resolve(__dirname, 'lib/component/index.ts')
+        'component/index': resolve(__dirname, 'lib/component/index.ts'),
+        'component/types': resolve(__dirname, 'lib/component/types.ts')
       },
       formats: ['es', 'cjs'],
-      fileName: (format, entryName) => {
-        const ext = format === 'es' ? 'js' : 'cjs'
-        return `${entryName}.${ext}`
-      }
+      fileName: (format, entryName) => `${entryName}.${format === 'es' ? 'js' : 'cjs'}`
     },
     rollupOptions: {
       external: [
         'vue',
         'vite',
-        'svgo',
+        'vite-svg-loader',
         'fs',
         'path',
         'node:fs',
         'node:path',
         'node:url',
-        'node:child_process'
+        'node:child_process',
+        'virtual:vue-svg-icons/generated'
       ],
       output: {
         globals: {
           vue: 'Vue'
         },
-        preserveModules: false
+        preserveModules: true,
+        preserveModulesRoot: 'lib'
       }
     },
     outDir: 'dist',

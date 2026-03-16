@@ -23,17 +23,17 @@
     /* Path Aliases */
     "baseUrl": ".",
     "paths": {
-      "@/*": ["./src/*"]
+      "@/*": ["./lib/*"]
     },
 
     /* Vue-specific */
     "types": ["vite/client"]
   },
   "include": [
-    "src/**/*.ts",
-    "src/**/*.d.ts",
-    "src/**/*.tsx",
-    "src/**/*.vue",
+    "lib/**/*.ts",
+    "lib/**/*.d.ts",
+    "lib/**/*.tsx",
+    "lib/**/*.vue",
     "scripts/**/*.ts"
   ],
   "references": [{ "path": "./tsconfig.node.json" }],

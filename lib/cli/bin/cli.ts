@@ -2,7 +2,6 @@
 import { Command } from 'commander'
 import { initCommand } from '../commands/init.js'
 import { generateCommand } from '../commands/generate.js'
-import { watchCommand } from '../commands/watch.js'
 
 const program = new Command()
 
@@ -22,12 +21,5 @@ program
   .option('-i, --icons-dir <path>', 'Icons directory', './src/assets/icons')
   .option('-o, --output-dir <path>', 'Output directory for types', './src/components/icon/generated')
   .action(generateCommand)
-
-program
-  .command('watch')
-  .description('Watch icons directory and auto-generate types')
-  .option('-i, --icons-dir <path>', 'Icons directory', './src/assets/icons')
-  .option('-o, --output-dir <path>', 'Output directory for types', './src/components/icon/generated')
-  .action(watchCommand)
 
 program.parse()

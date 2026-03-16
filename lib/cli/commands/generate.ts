@@ -1,7 +1,7 @@
 import { resolve } from 'node:path'
 import { existsSync } from 'node:fs'
 import { logger } from '../utils/logger.js'
-import { generateTypes } from '../utils/type-generator.js'
+import { generateTypes } from '../utils/generate-types.js'
 
 interface GenerateOptions {
   iconsDir?: string

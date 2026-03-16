@@ -1,34 +1,34 @@
-# Vue SVG Icons - Demo
+# Vue SVG Icons — Демо
 
-This is a demonstration of the `@rovik/vue-svg-icons` library.
+Демонстрация библиотеки `@rovik/vue-svg-icons`.
 
-## Getting Started
+## Начало работы
 
 ```bash
-# Install dependencies (from root)
+# Установить зависимости (из корня проекта)
 npm install
 
-# Run demo
+# Запустить демо
 npm run dev:demo
 ```
 
-## Adding Icons
+## Добавление иконок
 
-1. Add SVG files to `src/assets/icons/`
-2. Organize in subdirectories (e.g., `common/`, `social/`)
-3. Types will auto-generate during development
-4. Use with full autocomplete: `<Icon name="category/icon" />`
+1. Добавьте SVG-файлы в `src/assets/icons/`
+2. Организуйте по подпапкам (например, `common/`, `social/`)
+3. Типы автоматически перегенерируются в процессе разработки
+4. Используйте с полным автодополнением: `<Icon name="category/icon" />`
 
-## Features Demonstrated
+## Демонстрируемые возможности
 
-- ✅ Basic icon usage
-- ✅ Size control (pixels, em, rem)
-- ✅ Color control
-- ✅ currentColor theming
-- ✅ Dark mode support
-- ✅ Accessibility (semantic vs decorative)
-- ✅ Type-safe icon names with autocomplete
+- ✅ Базовое использование иконок
+- ✅ Управление размером (пиксели, em, rem)
+- ✅ Управление цветом
+- ✅ Темизация через currentColor
+- ✅ Поддержка тёмной темы
+- ✅ Доступность (семантические и декоративные иконки)
+- ✅ Типобезопасные имена иконок с автодополнением
 
-## Learn More
+## Подробнее
 
-Visit the main README for full documentation and API reference.
+Полная документация и справочник API — в основном README.

@@ -1,6 +1,6 @@
 {
   "name": "@rovik/vue-svg-icons",
-  "version": "1.0.0",
+  "version": "1.0.19",
   "description": "Type-safe SVG icon system for Vue 3 with automatic optimization and theming",
   "type": "module",
   "workspaces": [
@@ -41,7 +41,6 @@
     "clean": "rimraf dist",
     "icons:init": "node dist/cli/bin/cli.js init",
     "icons:generate": "node dist/cli/bin/cli.js generate",
-    "icons:watch": "node dist/cli/bin/cli.js watch",
     "dev:demo": "npm run dev --workspace=vue-svg-icons-demo",
     "build:demo": "npm run build --workspace=vue-svg-icons-demo",
     "prepublishOnly": "npm run build",
@@ -63,15 +62,14 @@
     "theming"
   ],
   "peerDependencies": {
-    "vue": "^3.5.0",
-    "vite": "^5.0.0 || ^6.0.0 || ^7.0.0"
+    "vite": "^5.0.0 || ^6.0.0 || ^7.0.0",
+    "vite-svg-loader": "^5.0.0",
+    "vue": "^3.5.0"
   },
   "dependencies": {
-    "svgo": "^4.0.0",
     "commander": "^14.0.3",
     "picocolors": "^1.1.1",
-    "prompts": "^2.4.2",
-    "chokidar": "^5.0.0"
+    "prompts": "^2.4.2"
   },
   "devDependencies": {
     "@types/node": "^25.2.3",
@@ -82,6 +80,7 @@
     "typescript": "^5.9.3",
     "vite": "^7.3.1",
     "vite-plugin-dts": "^4.5.4",
+    "vite-svg-loader": "^5.1.0",
     "vue": "^3.5.27",
     "vue-tsc": "^3.2.4"
   },

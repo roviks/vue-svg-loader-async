@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import { ref, computed } from 'vue'
-import Icon from './components/Icon.vue'
+import { ref } from 'vue'
 import type { IconName } from './components/icon/generated/types'
+import { Icon } from '../../../dist'
 
 const isDark = ref(false)
 const selectedSize = ref(24)

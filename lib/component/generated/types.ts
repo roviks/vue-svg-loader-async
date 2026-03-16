@@ -16,7 +16,6 @@ export interface IconMetadata {
   colorCount: number
 }
 
-// Empty metadata - consumers will generate their own
 export const ICON_METADATA: Record<IconName, IconMetadata> = {}
 export const ICON_NAMES: readonly IconName[] = []
 export const ICON_CATEGORIES: Record<IconCategory, readonly IconName[]> = {}
