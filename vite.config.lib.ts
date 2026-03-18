@@ -10,7 +10,7 @@ export default defineConfig({
       insertTypesEntry: true,
       tsconfigPath: 'tsconfig.node.json',
       include: ['lib/**/*.ts', 'lib/**/*.vue'],
-      exclude: ['lib/cli/bin/**/*', 'lib/cli/commands/**/*', 'lib/cli/templates/**/*', 'lib/cli/utils/logger.ts']
+      exclude: ['lib/cli/bin/**/*', 'lib/cli/commands/**/*', 'lib/cli/templates/**/*']
     })
   ],
   build: {

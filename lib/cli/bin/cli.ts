@@ -1,25 +1,33 @@
 #!/usr/bin/env node
+import { createRequire } from 'node:module'
 import { Command } from 'commander'
-import { initCommand } from '../commands/init.js'
-import { generateCommand } from '../commands/generate.js'
+import { createInitCommand } from '../commands/init.js'
+import { createGenerateCommand } from '../commands/generate.js'
 
-const program = new Command()
+const require = createRequire(import.meta.url)
+const { version } = require('../../../package.json') as { version: string }
 
-program
-  .name('vue-svg-icons')
-  .description('Type-safe SVG icon system for Vue 3')
-  .version('1.0.0')
+export function createCli(): Command {
+  const program = new Command()
 
-program
-  .command('init')
-  .description('Initialize icon system in your project')
-  .action(initCommand)
+  program
+    .name('vue-svg-icons')
+    .description('Type-safe SVG icon system for Vue 3')
+    .version(version)
 
-program
-  .command('generate')
-  .description('Generate TypeScript types from SVG icons')
-  .option('-i, --icons-dir <path>', 'Icons directory', './src/assets/icons')
-  .option('-o, --output-dir <path>', 'Output directory for types', './src/components/icon/generated')
-  .action(generateCommand)
+  program
+    .command('init')
+    .description('Initialize icon system in your project')
+    .action(createInitCommand())
 
-program.parse()
+  program
+    .command('generate')
+    .description('Generate TypeScript types from SVG icons')
+    .option('-i, --icons-dir <path>', 'Icons directory', './src/assets/icons')
+    .option('-o, --output-dir <path>', 'Output directory for types', './src/components/icon/generated')
+    .action(createGenerateCommand())
+
+  return program
+}
+
+createCli().parse()

@@ -1,6 +1,12 @@
-export interface SvgInlinePluginOptions {
+export interface CreateSvgPluginParams {
+  /**
+   * Directory containing SVG icon files.
+   */
   iconsDir?: string
-  
+
+  /**
+   * Output directory for generated TypeScript types.
+   */
   outputDir?: string
 
   /**

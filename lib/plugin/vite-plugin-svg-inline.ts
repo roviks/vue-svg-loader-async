@@ -1,14 +1,37 @@
 import { existsSync } from 'node:fs'
 import { resolve, join } from 'node:path'
+import type { Plugin, ViteDevServer } from 'vite'
+import svgLoader from 'vite-svg-loader'
+import type { CreateSvgPluginParams } from './types.js'
+import { createTypeGenerator } from '../cli/utils/generate-types.js'
+import type { Logger } from '../cli/utils/logger.js'
+
+function createPluginLogger(): Logger {
+  return {
+    success: (msg) => console.log(msg),
+    error: (msg) => console.error(msg),
+    warning: (msg) => console.warn(msg),
+    info: (msg) => console.log(msg),
+    dim: (msg) => console.log(msg)
+  }
+}
 
 const VIRTUAL_MODULE_ID = 'virtual:vue-svg-icons/generated'
 const RESOLVED_VIRTUAL_MODULE_ID = '\0' + VIRTUAL_MODULE_ID
-import type { Plugin, ViteDevServer } from 'vite'
-import svgLoader from 'vite-svg-loader'
-import type { SvgInlinePluginOptions } from './types.js'
-import { generateTypes } from '../cli/utils/generate-types.js'
+const DEBOUNCE_DELAY_MS = 200
 
-export function svgInlinePlugin(options: SvgInlinePluginOptions = {}): Plugin[] {
+function debounce<T extends (...args: Parameters<T>) => void>(fn: T, delay: number): T {
+  let timer: ReturnType<typeof setTimeout> | undefined
+  return ((...args: Parameters<T>) => {
+    clearTimeout(timer)
+    timer = setTimeout(() => fn(...args), delay)
+  }) as T
+}
+
+export function createSvgPlugin(params: CreateSvgPluginParams = {}): Plugin[] {
+  const logger = createPluginLogger()
+  const generator = createTypeGenerator({ logger })
+
   let resolvedIconsDir: string | null = null
   let resolvedOutputDir: string | null = null
   let isGenerating = false
@@ -19,11 +42,11 @@ export function svgInlinePlugin(options: SvgInlinePluginOptions = {}): Plugin[] 
 
     isGenerating = true
     try {
-      const count = await generateTypes(resolvedIconsDir, resolvedOutputDir)
-      console.log(`\x1b[36m[vue-svg-icons]\x1b[0m Generated types for ${count} icons`)
+      const count = await generator.generate(resolvedIconsDir, resolvedOutputDir)
+      logger.info(`[vue-svg-icons] Generated types for ${count} icons`)
       server?.ws.send({ type: 'full-reload' })
     } catch (e) {
-      console.error('\x1b[31m[vue-svg-icons]\x1b[0m Failed to generate types:', e)
+      logger.error(`[vue-svg-icons] Failed to generate types: ${e}`)
     } finally {
       isGenerating = false
     }
@@ -79,7 +102,7 @@ export function svgInlinePlugin(options: SvgInlinePluginOptions = {}): Plugin[] 
 
       const importIconFn = resolvedIconsDir
         ? `export function importIcon(name) {
-  return import(\`${resolvedIconsDir}/\${name}.svg\`)
+  return import(/* @vite-ignore */ \`${resolvedIconsDir}/\${name}.svg\`)
 }`
         : `export function importIcon(name) {
   return Promise.reject(new Error('[vue-svg-icons] No iconsDir configured'))
@@ -94,11 +117,11 @@ export function svgInlinePlugin(options: SvgInlinePluginOptions = {}): Plugin[] 
     },
 
     async configResolved(config) {
-      if (options.iconsDir) {
-        resolvedIconsDir = resolve(config.root, options.iconsDir)
+      if (params.iconsDir) {
+        resolvedIconsDir = resolve(config.root, params.iconsDir)
         resolvedOutputDir = resolve(
           config.root,
-          options.outputDir ?? './src/components/icon/generated'
+          params.outputDir ?? './src/components/icon/generated'
         )
       }
     },
@@ -112,25 +135,27 @@ export function svgInlinePlugin(options: SvgInlinePluginOptions = {}): Plugin[] 
 
       if (!resolvedIconsDir) return
 
+      const debouncedRegenerate = debounce(() => runGenerateTypes(server), DEBOUNCE_DELAY_MS)
+
       server.watcher.on('add', (file) => {
         if (file.startsWith(resolvedIconsDir!) && file.endsWith('.svg')) {
-          console.log(`\x1b[32m[vue-svg-icons]\x1b[0m New icon: ${file.split('/').pop()}`)
-          runGenerateTypes(server)
+          logger.success(`[vue-svg-icons] New icon: ${file.split('/').pop()}`)
+          debouncedRegenerate()
         }
       })
       server.watcher.on('unlink', (file) => {
         if (file.startsWith(resolvedIconsDir!) && file.endsWith('.svg')) {
-          console.log(`\x1b[33m[vue-svg-icons]\x1b[0m Removed: ${file.split('/').pop()}`)
-          runGenerateTypes(server)
+          logger.warning(`[vue-svg-icons] Removed: ${file.split('/').pop()}`)
+          debouncedRegenerate()
         }
       })
       server.watcher.on('change', (file) => {
         if (file.startsWith(resolvedIconsDir!) && file.endsWith('.svg')) {
-          runGenerateTypes(server)
+          debouncedRegenerate()
         }
       })
     }
   }
 
-  return [svgLoader(options.svgLoaderOptions), customPlugin]
+  return [svgLoader(params.svgLoaderOptions), customPlugin]
 }

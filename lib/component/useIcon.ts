@@ -17,10 +17,17 @@ export const useIcon = (props: IconProps) => {
 
   const IconComponent = computed<Component>(() => {
     return defineAsyncComponent({
-      loader: () => importIcon(name.value),
-      onError(_err, _retry, fail) {
-        console.warn(`[vue-svg-icons] Icon not found: "${name.value}"`);
-        fail();
+      loader: async () => {
+        if (ICON_METADATA && !(name.value in ICON_METADATA)) {
+          console.warn(`[vue-svg-icons] Icon not found: "${name.value}"`);
+          return { default: { render: () => null } };
+        }
+        try {
+          return await importIcon(name.value);
+        } catch (err) {
+          console.warn(`[vue-svg-icons] Failed to load icon: "${name.value}"`, err);
+          return { default: { render: () => null } };
+        }
       },
       errorComponent: { render: () => null },
     });

@@ -1,11 +1,11 @@
 import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
-import { svgInlinePlugin } from '@rovik/vue-svg-icons/plugin'
+import { createSvgPlugin } from '@rovik/vue-svg-icons/plugin'
 
 export default defineConfig({
   plugins: [
     vue(),
-    svgInlinePlugin({
+    createSvgPlugin({
       iconsDir: './src/assets/icons',
       outputDir: './src/components/icon/generated'
     })

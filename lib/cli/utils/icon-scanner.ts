@@ -1,6 +1,7 @@
 import { readdirSync, readFileSync, statSync } from 'node:fs'
 import { join, relative, parse } from 'node:path'
 import { extractViewBox, parseViewBox, extractColors } from './svg-parser.js'
+import type { Logger } from './logger.js'
 
 export interface IconInfo {
   name: string
@@ -13,46 +14,58 @@ export interface IconInfo {
   hasMultipleColors: boolean
 }
 
-export function scanIconDirectory(dir: string, baseDir: string = dir): IconInfo[] {
-  const icons: IconInfo[] = []
-  const entries = readdirSync(dir)
+export interface CreateIconScannerParams {
+  logger: Logger
+}
 
-  for (const entry of entries) {
-    const fullPath = join(dir, entry)
-    const stat = statSync(fullPath)
+export interface IconScanner {
+  scan: (dir: string, baseDir?: string) => IconInfo[]
+}
 
-    if (stat.isDirectory()) {
-      icons.push(...scanIconDirectory(fullPath, baseDir))
-    } else if (entry.endsWith('.svg')) {
-      try {
-        const svgContent = readFileSync(fullPath, 'utf-8')
-        const relativePath = relative(baseDir, fullPath)
-        const { dir: categoryPath, name: fileName } = parse(relativePath)
+export function createIconScanner({ logger }: CreateIconScannerParams): IconScanner {
+  function scan(dir: string, baseDir: string = dir): IconInfo[] {
+    const icons: IconInfo[] = []
+    const entries = readdirSync(dir)
 
-        const category = categoryPath || 'default'
-        const iconName = categoryPath ? `${categoryPath}/${fileName}` : fileName
+    for (const entry of entries) {
+      const fullPath = join(dir, entry)
+      const stat = statSync(fullPath)
 
-        const viewBox = extractViewBox(svgContent)
-        const { width, height } = parseViewBox(viewBox)
-        const colors = extractColors(svgContent)
-        const colorCount = colors.length
-        const hasMultipleColors = colorCount > 1
+      if (stat.isDirectory()) {
+        icons.push(...scan(fullPath, baseDir))
+      } else if (entry.endsWith('.svg')) {
+        try {
+          const svgContent = readFileSync(fullPath, 'utf-8')
+          const relativePath = relative(baseDir, fullPath)
+          const { dir: categoryPath, name: fileName } = parse(relativePath)
 
-        icons.push({
-          name: iconName,
-          category,
-          viewBox,
-          width,
-          height,
-          colors,
-          colorCount,
-          hasMultipleColors
-        })
-      } catch (error) {
-        console.warn(`Warning: Failed to process ${fullPath}:`, error)
+          const category = categoryPath || 'default'
+          const iconName = categoryPath ? `${categoryPath}/${fileName}` : fileName
+
+          const viewBox = extractViewBox(svgContent)
+          const { width, height } = parseViewBox(viewBox)
+          const colors = extractColors(svgContent)
+          const colorCount = colors.length
+          const hasMultipleColors = colorCount > 1
+
+          icons.push({
+            name: iconName,
+            category,
+            viewBox,
+            width,
+            height,
+            colors,
+            colorCount,
+            hasMultipleColors
+          })
+        } catch (error) {
+          logger.warning(`Failed to process ${fullPath}: ${error}`)
+        }
       }
     }
+
+    return icons
   }
 
-  return icons
+  return { scan }
 }

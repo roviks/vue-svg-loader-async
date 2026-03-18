@@ -1,2 +1,2 @@
-export { svgInlinePlugin } from './vite-plugin-svg-inline'
-export type { SvgInlinePluginOptions } from './types'
+export { createSvgPlugin } from './vite-plugin-svg-inline'
+export type { CreateSvgPluginParams } from './types'

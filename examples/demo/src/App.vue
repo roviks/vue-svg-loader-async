@@ -33,7 +33,6 @@ const toggleTheme = () => {
       </header>
 
       <main class="demo-content">
-        <!-- Basic Usage -->
         <section class="demo-section">
           <h2>Basic Usage</h2>
           <div class="icon-grid">
@@ -52,7 +51,6 @@ const toggleTheme = () => {
           </div>
         </section>
 
-        <!-- Size Control -->
         <section class="demo-section">
           <h2>Size Control</h2>
           <div class="controls">
@@ -72,7 +70,6 @@ const toggleTheme = () => {
           </div>
         </section>
 
-        <!-- Color Control -->
         <section class="demo-section">
           <h2>Color Control</h2>
           <div class="controls">
@@ -87,7 +84,6 @@ const toggleTheme = () => {
           </div>
         </section>
 
-        <!-- CSS Units -->
         <section class="demo-section">
           <h2>CSS Units</h2>
           <div class="icon-grid">
@@ -106,7 +102,6 @@ const toggleTheme = () => {
           </div>
         </section>
 
-        <!-- currentColor Theming -->
         <section class="demo-section">
           <h2>currentColor Theming</h2>
           <div class="themed-boxes">
@@ -125,7 +120,6 @@ const toggleTheme = () => {
           </div>
         </section>
 
-        <!-- Accessibility -->
         <section class="demo-section">
           <h2>Accessibility</h2>
           <div class="accessibility-examples">
@@ -145,7 +139,6 @@ const toggleTheme = () => {
           </div>
         </section>
 
-        <!-- Instructions -->
         <section class="demo-section instructions">
           <h2>Add Your Own Icons</h2>
           <ol>
@@ -264,7 +257,7 @@ const toggleTheme = () => {
   align-items: center;
   gap: 0.5rem;
   padding: 1.5rem;
-  background: #f7fafc;
+  background: #686868;
   border-radius: 8px;
   border: 2px solid #e2e8f0;
   transition: all 0.2s;
