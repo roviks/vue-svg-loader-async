@@ -163,42 +163,31 @@ const toggleTheme = () => {
 </template>
 
 <style scoped>
+
+
 .app-container {
   min-height: 100vh;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-secondary) 100%);
   padding: 2rem;
   transition: all 0.3s ease;
-}
-
-.app-container.dark {
-  background: linear-gradient(135deg, #1a202c 0%, #2d3748 100%);
 }
 
 .demo-wrapper {
   max-width: 1200px;
   margin: 0 auto;
-  background: white;
+  background: var(--color-bg);
   border-radius: 16px;
   box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
   overflow: hidden;
 }
 
-.dark .demo-wrapper {
-  background: #1a202c;
-  color: #e2e8f0;
-}
-
 .demo-header {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  color: white;
+  background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-secondary) 100%);
+  color: var(--color-text-primary);
   padding: 2rem;
   display: flex;
   justify-content: space-between;
   align-items: center;
-}
-
-.dark .demo-header {
-  background: linear-gradient(135deg, #2d3748 0%, #1a202c 100%);
 }
 
 .demo-header h1 {
@@ -212,7 +201,7 @@ const toggleTheme = () => {
 .theme-toggle {
   background: rgba(255, 255, 255, 0.2);
   border: none;
-  color: white;
+  color: var(--color-text-primary);
   padding: 0.75rem 1.5rem;
   border-radius: 8px;
   cursor: pointer;
@@ -236,13 +225,9 @@ const toggleTheme = () => {
 }
 
 .demo-section h2 {
-  color: #667eea;
+  color: var(--color-primary);
   margin-bottom: 1.5rem;
   font-size: 1.5rem;
-}
-
-.dark .demo-section h2 {
-  color: #9f7aea;
 }
 
 .icon-grid {
@@ -257,29 +242,21 @@ const toggleTheme = () => {
   align-items: center;
   gap: 0.5rem;
   padding: 1.5rem;
-  background: #686868;
+  color: var(--color-text-primary);
+  background: var(--color-card-bg);
   border-radius: 8px;
-  border: 2px solid #e2e8f0;
+  border: 2px solid var(--color-card-border);
   transition: all 0.2s;
 }
 
-.dark .icon-card {
-  background: #2d3748;
-  border-color: #4a5568;
-}
-
 .icon-card:hover {
-  border-color: #667eea;
+  border-color: var(--color-primary);
   transform: translateY(-2px);
 }
 
 .icon-card span {
   font-size: 0.875rem;
   color: #64748b;
-}
-
-.dark .icon-card span {
-  color: #cbd5e0;
 }
 
 .controls {
@@ -310,12 +287,9 @@ const toggleTheme = () => {
   display: flex;
   justify-content: center;
   padding: 2rem;
-  background: #f7fafc;
+  background: var(--color-card-bg);
+  color: var(--color-text-primary);
   border-radius: 8px;
-}
-
-.dark .icon-display {
-  background: #2d3748;
 }
 
 .themed-boxes {
@@ -357,47 +331,35 @@ const toggleTheme = () => {
 
 .example {
   padding: 1.5rem;
-  background: #f7fafc;
+  background: var(--color-card-bg);
   border-radius: 8px;
-  border-left: 4px solid #667eea;
-}
-
-.dark .example {
-  background: #2d3748;
-  border-left-color: #9f7aea;
+  color: var(--color-text-primary);
+  border-left: 4px solid var(--color-primary);
 }
 
 .example h3 {
   margin-top: 0;
   margin-bottom: 1rem;
   font-size: 1rem;
-  color: #334155;
-}
-
-.dark .example h3 {
-  color: #e2e8f0;
+  color: var(--color-text-primary);
 }
 
 .example code {
   display: block;
   margin-top: 1rem;
   padding: 0.5rem;
-  background: #e2e8f0;
+  background: var(--color-card-bg);
   border-radius: 4px;
+  color: var(--color-text-primary);
   font-size: 0.875rem;
 }
-
-.dark .example code {
-  background: #1a202c;
-}
-
 .demo-button {
   display: flex;
   align-items: center;
   gap: 0.5rem;
   padding: 0.75rem 1.5rem;
-  background: #667eea;
-  color: white;
+  background: var(--color-primary);
+  color: var(--color-text-primary);
   border: none;
   border-radius: 8px;
   cursor: pointer;
@@ -416,18 +378,9 @@ const toggleTheme = () => {
   border-left: 4px solid #f59e0b;
 }
 
-.dark .instructions {
-  background: #2d3748;
-  border-left-color: #fbbf24;
-}
-
 .instructions h2 {
   color: #92400e;
   margin-top: 0;
-}
-
-.dark .instructions h2 {
-  color: #fbbf24;
 }
 
 .instructions ol {
@@ -440,10 +393,6 @@ const toggleTheme = () => {
   color: #78350f;
 }
 
-.dark .instructions li {
-  color: #fde68a;
-}
-
 .instructions code {
   background: #fed7aa;
   padding: 0.125rem 0.375rem;
@@ -451,31 +400,19 @@ const toggleTheme = () => {
   font-size: 0.875rem;
 }
 
-.dark .instructions code {
-  background: #1a202c;
-}
-
 .demo-footer {
-  background: #f7fafc;
+  background: var(--color-card-bg);
   padding: 1.5rem;
   text-align: center;
-  color: #64748b;
-}
-
-.dark .demo-footer {
-  background: #2d3748;
-  color: #cbd5e0;
+  color: var(--color-text-primary);
 }
 
 .demo-footer a {
-  color: #667eea;
+  color: var(--color-primary);
   text-decoration: none;
   font-weight: 500;
 }
 
-.dark .demo-footer a {
-  color: #9f7aea;
-}
 
 .demo-footer a:hover {
   text-decoration: underline;
