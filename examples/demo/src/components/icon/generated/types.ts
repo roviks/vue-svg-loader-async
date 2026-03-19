@@ -1,7 +1,7 @@
 /**
  * THIS IS A GENERATED FILE. DO NOT EDIT!
  *
- * Total icons: 5
+ * Total icons: 6
  * Total categories: 1
  */
 
@@ -11,6 +11,7 @@ export type IconCategory =
 export type IconName =
   | 'common/home'
   | 'common/moon'
+  | 'common/palette'
   | 'common/settings'
   | 'common/sun'
   | 'common/user';
@@ -44,6 +45,15 @@ export const ICON_METADATA: Record<IconName, IconMetadata> = {
     hasMultipleColors: false,
     colorCount: 0
   },
+  'common/palette': {
+    name: 'common/palette',
+    category: 'common',
+    viewBox: '0 0 24 24',
+    width: 24,
+    height: 24,
+    hasMultipleColors: true,
+    colorCount: 6
+  },
   'common/settings': {
     name: 'common/settings',
     category: 'common',
@@ -69,18 +79,19 @@ export const ICON_METADATA: Record<IconName, IconMetadata> = {
     width: 24,
     height: 24,
     hasMultipleColors: false,
-    colorCount: 0
+    colorCount: 1
   }
 };
 
 export const ICON_NAMES = [
   'common/home',
   'common/moon',
+  'common/palette',
   'common/settings',
   'common/sun',
   'common/user'
 ] as const;
 
 export const ICON_CATEGORIES: Record<IconCategory, readonly IconName[]> = {
-  'common': ['common/home', 'common/moon', 'common/settings', 'common/sun', 'common/user']
+  'common': ['common/home', 'common/moon', 'common/palette', 'common/settings', 'common/sun', 'common/user']
 };

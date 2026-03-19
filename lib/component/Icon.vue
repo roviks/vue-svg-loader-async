@@ -25,6 +25,7 @@ const {
   >
     <component
       :is="IconComponent"
+      :key="props.name"
       :viewBox="props.viewBox || metadata?.viewBox"
       preserveAspectRatio="xMidYMid meet"
     />

@@ -7,7 +7,17 @@ export default defineConfig({
     vue(),
     createSvgPlugin({
       iconsDir: './src/assets/icons',
-      outputDir: './src/components/icon/generated'
+      outputDir: './src/components/icon/generated',
+      svgLoaderOptions: {
+        svgoConfig: {
+          plugins: [
+            {
+              name: 'convertColors',
+              params: { currentColor: true }
+            }
+          ]
+        }
+      }
     })
   ],
   resolve: {

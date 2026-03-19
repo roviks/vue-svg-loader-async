@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none">
+  <circle cx="12" cy="12" r="10" fill="var(--icon-bg)" />
+  <circle cx="8" cy="10" r="2" fill="var(--icon-color1)" />
+  <circle cx="12" cy="8" r="2" fill="var(--icon-color2)" />
+  <circle cx="16" cy="10" r="2" fill="var(--icon-color3)" />
+  <circle cx="14" cy="14" r="2" fill="var(--icon-color4)" />
+  <circle cx="10" cy="14" r="2" fill="var(--icon-color5)" />
+</svg>

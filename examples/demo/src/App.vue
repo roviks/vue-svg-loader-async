@@ -1,16 +1,10 @@
 <script setup lang="ts">
 import { ref } from 'vue'
-import type { IconName } from './components/icon/generated/types'
 import { Icon } from '../../../dist'
 
 const isDark = ref(false)
 const selectedSize = ref(24)
 const selectedColor = ref('#3B82F6')
-
-// Demo icon name - will be generated from your icons
-const demoIcon = ref<IconName>('common/home')
-
-const sizeOptions = [16, 24, 32, 48, 64]
 
 const toggleTheme = () => {
   isDark.value = !isDark.value
@@ -37,7 +31,7 @@ const toggleTheme = () => {
           <h2>Basic Usage</h2>
           <div class="icon-grid">
             <div class="icon-card">
-              <Icon name="common/home" />
+              <Icon name="common/sun" />
               <span>Home</span>
             </div>
             <div class="icon-card">
@@ -47,6 +41,10 @@ const toggleTheme = () => {
             <div class="icon-card">
               <Icon name="common/settings" />
               <span>Settings</span>
+            </div>
+            <div class="icon-card">
+              <Icon name="common/user" />
+              <span>User</span>
             </div>
           </div>
         </section>
@@ -58,7 +56,7 @@ const toggleTheme = () => {
               Size: {{ selectedSize }}px
               <input
                 type="range"
-                v-model="selectedSize"
+                v-model.number="selectedSize"
                 min="16"
                 max="128"
                 step="8"
@@ -245,6 +243,7 @@ const toggleTheme = () => {
   color: var(--color-text-primary);
   background: var(--color-card-bg);
   border-radius: 8px;
+  justify-content: center;
   border: 2px solid var(--color-card-border);
   transition: all 0.2s;
 }

@@ -3,7 +3,6 @@ import {
   computed,
   CSSProperties,
   defineAsyncComponent,
-  toRef,
   type Component,
 } from "vue";
 import {
@@ -13,43 +12,54 @@ import {
 } from "virtual:vue-svg-icons/generated";
 
 export const useIcon = (props: IconProps) => {
-  const name = toRef(props, "name");
+  const name = computed(() => props.name);
+  const size = computed(() => props.size);
+  const color = computed(() => props.color);
+  const cssVars = computed(() => props.cssVars);
+  const label = computed(() => props.label);
+  const decorative = computed(() => props.decorative);
 
-  const IconComponent = computed<Component>(() => {
-    return defineAsyncComponent({
+  const createIconComponent = (iconName: string): Component =>
+    defineAsyncComponent({
       loader: async () => {
-        if (ICON_METADATA && !(name.value in ICON_METADATA)) {
-          console.warn(`[vue-svg-icons] Icon not found: "${name.value}"`);
+        if (ICON_METADATA && !(iconName in ICON_METADATA)) {
+          console.warn(`[vue-svg-icons] Icon not found: "${iconName}"`);
           return { default: { render: () => null } };
         }
         try {
-          return await importIcon(name.value);
+          return await importIcon(iconName);
         } catch (err) {
-          console.warn(`[vue-svg-icons] Failed to load icon: "${name.value}"`, err);
+          console.warn(`[vue-svg-icons] Failed to load icon: "${iconName}"`, err);
           return { default: { render: () => null } };
         }
       },
       errorComponent: { render: () => null },
     });
+
+  const cache = new Map<string, Component>();
+
+  const IconComponent = computed<Component>(() => {
+    if (!cache.has(name.value)) cache.set(name.value, createIconComponent(name.value));
+    return cache.get(name.value)!;
   });
 
   const metadata = computed<IconMetadata>(
-    () => ICON_METADATA?.[props.name] || null,
+    () => ICON_METADATA?.[name.value] || null,
   );
 
   const iconStyles = computed<CSSProperties>(() => {
     const styles: CSSProperties = {
-      width: typeof props.size === "number" ? `${props.size}px` : props.size,
-      height: typeof props.size === "number" ? `${props.size}px` : props.size,
-      color: props.color,
+      width: typeof size.value === "number" ? `${size.value}px` : size.value,
+      height: typeof size.value === "number" ? `${size.value}px` : size.value,
+      color: color.value,
       display: "inline-flex",
       alignItems: "center",
       justifyContent: "center",
       flexShrink: "0",
     };
 
-    if (props.cssVars && metadata.value?.hasMultipleColors) {
-      Object.entries(props.cssVars).forEach(([key, value]) => {
+    if (cssVars.value && metadata.value?.hasMultipleColors) {
+      Object.entries(cssVars.value).forEach(([key, value]) => {
         styles[`--icon-${key}`] = value;
       });
     }
@@ -58,7 +68,7 @@ export const useIcon = (props: IconProps) => {
   });
 
   const ariaAttrs = computed<Record<string, unknown>>(() => {
-    if (props.decorative) {
+    if (decorative.value) {
       return {
         "aria-hidden": true,
         role: "presentation",
@@ -67,7 +77,7 @@ export const useIcon = (props: IconProps) => {
 
     return {
       role: "img",
-      "aria-label": props.label || `${props.name} icon`,
+      "aria-label": label.value || `${name.value} icon`,
     };
   });
 

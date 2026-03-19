@@ -10,6 +10,23 @@
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+
+  --color-primary: #667eea;
+  --color-secondary: #764ba2;
+  --color-card-bg: #f0efef;
+  --color-card-border: #e1e1e1;
+  --color-text-primary: #334155;
+  --color-text-secondary: #64748b;
+  --color-bg: #fff;
+}
+
+.dark {
+  --color-primary: #667eea;
+  --color-secondary: #764ba2;
+  --color-card-bg: #2d3748;
+  --color-text-primary: #e2e8f0;
+  --color-text-secondary: #cbd5e0;
+  --color-bg: #1a202c;
 }
 
 * {
@@ -20,6 +37,7 @@ body {
   margin: 0;
   padding: 0;
   min-height: 100vh;
+  color: var(--color-text-primary);
 }
 
 #app {
@@ -42,23 +60,4 @@ h6 {
 
 button {
   font-family: inherit;
-}
-
-:root {
-  --color-primary: #667eea;
-  --color-secondary: #764ba2;
-  --color-card-bg: #c0c0c0;
-  --color-card-border: #a1a1a1;
-  --color-text-primary: #334155;
-  --color-text-secondary: #64748b;
-  --color-bg: #fff;
-}
-
-.dark {
-  --color-primary: #9f7aea;
-  --color-secondary: #6b21a8;
-  --color-card-bg: #2d3748;
-  --color-text-primary: #e2e8f0;
-  --color-text-secondary: #cbd5e0;
-  --color-bg: #1a202c;
 }

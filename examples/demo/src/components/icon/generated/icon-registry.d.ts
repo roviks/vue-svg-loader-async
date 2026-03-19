@@ -9,6 +9,7 @@ declare module '@rovik/vue-svg-icons' {
   interface IconRegistry {
     'common/home': true
     'common/moon': true
+    'common/palette': true
     'common/settings': true
     'common/sun': true
     'common/user': true
